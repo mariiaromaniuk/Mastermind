@@ -66,11 +66,16 @@ The number combination is generated from https://www.random.org/clients/http/api
 AI generates a valid guess based on previous guesses. Following algorithms where implemented:
 
 [**Genetic Algorithm**](https://en.wikipedia.org/wiki/Genetic_algorithm)  
-The algorithm itself is pretty straightforward, but the concept is exciting. Inspired by the paper "Efficient solutions for Mastermind using genetic algorithms" by Lotte Berghman, Dries Goossens, Roel Leus. This algorithm evolves the population by comparing every next guess with the previous one by using the following techniques:
+The algorithm itself is pretty straightforward, but the concept is exciting. Inspired by the paper "Efficient solutions for Mastermind using genetic algorithms" by Lotte Berghman, Dries Goossens, Roel Leus. This algorithm evolves the population by comparing every next guess with the previous one by using the following techniques:  
+* _**Mutation**._ Replaces the digit of one randomly chosen position by a random other digit.
 * _**Permutation**._ The colors of two random positions are switched
 * _**Inversion**._ Two positions are randomly picked, and the sequence of colors between these positions is inverted.
 * _**One-point crossover**._ A single crossover point on both parents' organism strings is selected. All data beyond that point in either organism string is swapped between the two parent organisms. The resulting organisms are the children. 
 * _**Two-point crossover**._ Two points are selected on the parent organism strings. Everything between the two points is swapped between the parent organisms, rendering two-child organisms. A code c is eligible or feasible if it results in the same values for Xk and Yk for all guesses k that have been played up till that stage if c was the secret code. X is the number of exact matches. Y is the number of guesses which are the right color but in the wrong position.
+
+![](images/3fe7ae9e-a589-40a3-9904-c5cf0f650d94.png)
+![](F7.large.jpg)
+![](genetic_algorithm.jpg)
 
 [**Brute-force Search Algorithm**](https://en.wikipedia.org/wiki/Brute-force_search)   
 Also known as "generate and test" is a very general problem-solving technique that consists of systematically enumerating all possible candidates for the solution and checking whether each candidate satisfies the problem's statement. It generates a guess by "incrementing" the previous guess. If no previous guess available generate "lowest" possible guess. Every color is given a value that makes it possible to generate a "lowest" guess and to "increment" a guess.  
