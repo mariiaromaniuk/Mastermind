@@ -7,7 +7,15 @@ Mastermind Game implementation in Java Swing including an AI, which can be playe
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
 ## User Interface  
-
+![](images/readme1.jpg)
+![](images/readme2.jpg)
+![](images/readme3.jpg)
+![](images/readme4.jpg)
+![](images/readme5.jpg)
+![](images/readme6.jpg)
+![](images/readme7.jpg)
+![](images/readme8.jpg)
+![](images/readme9.jpg)
 
   
 ## Implementation  
