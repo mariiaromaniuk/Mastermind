@@ -20,7 +20,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
   
 ## Implementation  
 [**MVC Design Pattern**](https://github.com/mariiaromaniuk/Mastermind/blob/master/uml%20diagram/UML%20Diagram.pdf)  
-[**Model**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine.
+[**Model**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine. The central component of the pattern. It is the application's dynamic data structure, independent of the user interface. It directly manages the data, logic and rules of the application.  
   * Color - represents the numbers and colors used in the game engine (bonded together in enum type).
   * Row - represents a single Row with numbers set for the guess.
   
