@@ -3,9 +3,9 @@
 Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
-* ### [Demo Video](https://youtu.be/veBUPgUaIrw)  
-* ### [UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
-* ### [User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)
+* [**Demo Video**](https://youtu.be/veBUPgUaIrw)  
+* [**UML Diagram**](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
+* [**User Manual**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)
 
 ## User Interface  
 ![](images/readme1.jpg)
