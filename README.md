@@ -23,6 +23,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
 [**Model**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine. The central component of the pattern. It is the application's dynamic data structure, independent of the user interface. It directly manages the data, logic and rules of the application.  
   * Color - represents the numbers and colors used in the game engine (bonded together in enum type).
   * Row - represents a single Row with numbers set for the guess.
+  * Debug - used for debugging, i.e. with a function for debug-output.
   
 [**View**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the game engine. Various controls (buttons, sliders, menu, etc.) are implemented so that the user can interact and navigate through the game. The controls also send information to the backend to process API web calls, evaluate user input, and determine results. 
   * MainWindow - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package game). Changes in the GUI elements don't affect the game engine.
