@@ -1,8 +1,8 @@
 # Decoder1
 # InMastermind  
-[Demo Video](https://youtu.be/veBUPgUaIrw)  
-[User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)  
-[UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf)  
+* ### [Demo Video](https://youtu.be/veBUPgUaIrw)  
+* ### [UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
+* ### [User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)  
 Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
@@ -20,8 +20,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
   
 ## Implementation  
 [**Random Number API Integration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
-The number combination is generated from https://www.random.org/clients/http/api/  API. Random.org is a true random number generator that generates randomness from atmospheric noise. 
-  
+The number combination is generated from https://www.random.org/clients/http/api/  API. Random.org is a true random number generator that generates randomness from atmospheric noise. The call is made with the url I created based on the needed parameters: num, min, max, col, base, format, rnd. The strings I got back from the API were written in one column, therefore I added them to an array.  
 ```java
 // Parameters for query, num = 4 and max = 7 assigned by default 
 // in Settings, but can be changed according to player preferences 
@@ -51,7 +50,7 @@ The number combination is generated from https://www.random.org/clients/http/api
 [**Color Enumeration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
 Represents the numbers and unique colors assigned to them used in the game engine (bonded together in enum type). Randomly generated secret code will be converted from integer primitive data type into an enumerated object that contains two parameters: the integer value and the unique color value assigned to it. The color value is the RGB value representing the color in the default SRGB ColorModel. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue. These values are equal to the java.awt.Color.getRGB().
 
-## Additional Features Implemented
+## Extensions Implemented
 * Simple AI was added - a player can choose the option to be the codemaker, set the secret code and watch the AI breaking the code.  
 * Configurable "difficulty levels" where added to adjust:
   * the number of digits in the secret code (1-8), 
@@ -59,6 +58,7 @@ Represents the numbers and unique colors assigned to them used in the game engin
   * the number of attempts (1-10), 
   * use of duplicate numbers (allowed / not allowed).
 * Timer countdown: 3 minutes allowed for one game, when time is up game is terminated, but a player can stop the timer if he/she doesn't want to time the game.
+* A player is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries.
 * Validation of a player's guess: before checking the result of the guess a player can ask AI to validate it (was it good or bad) and adjust the guess according to the validation.
 * Hints: a player has an option to use AI to set the row for him/her and the option to set the last guess.
 * Numbers represented as colored pegs with numbers titled on them for convenience.
@@ -90,15 +90,6 @@ Also known as "generate and test" is a very general problem-solving technique th
 * Select _**Mastermind**_ folder in the dialog window and press Open
 * Open main runner class _**MainWindow**_ (*Mastermind → src → gui → MainWindow*)
 * Run the program from there
-
-Open your terminal to the directory you wish to save the repository.
-In the project directory, you can run:
-git clone https://github.com/jiblu/masterm1nd-game.git
-This will clone down the repo to your local machine.
-npm install
-This will install all dependencies required to successful run the app.
-npm start
-Runs the app in the development mode.
  
  
 ## Technologies Used
