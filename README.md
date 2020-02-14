@@ -1,11 +1,10 @@
-# Decoder1
 # Mastermind    
 Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
 * [**Demo Video**](https://youtu.be/veBUPgUaIrw)  
-* [**UML Diagram**](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
-* [**User Manual**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)
+* [**UML Diagram**](https://github.com/mariiaromaniuk/Mastermind/blob/master/uml%20diagram/UML%20Diagram.pdf) 
+* [**User Manual**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/gui/how-to.pdf)
 
 ## User Interface  
 ![](images/readme1.jpg)
@@ -20,18 +19,18 @@ Additionally, the player can choose the option to be the Codemaker and watch the
 
   
 ## Implementation  
-[**MVC Design Pattern**](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf)  
-[**Model**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine.
+[**MVC Design Pattern**](https://github.com/mariiaromaniuk/Mastermind/blob/master/uml%20diagram/UML%20Diagram.pdf)  
+[**Model**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine.
   * Color - represents the numbers and colors used in the game engine (bonded together in enum type).
   * Row - represents a single Row with numbers set for the guess.
   
-[**View**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the game engine. Various controls (buttons, sliders, menu, etc.) are implemented so that the user can interact and navigate through the game. The controls also send information to the backend to process API web calls, evaluate user input, and determine results. 
+[**View**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the game engine. Various controls (buttons, sliders, menu, etc.) are implemented so that the user can interact and navigate through the game. The controls also send information to the backend to process API web calls, evaluate user input, and determine results. 
   * MainWindow - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package game). Changes in the GUI elements don't affect the game engine.
   * how-to - user guide in PDF format with a detailed description of the roles and all the elements of the game. Automatically opens if the user selects *Help → How To Play* at the game control menu panel.
   
-[**Controller**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/game) - a Mastermind game engine. It is self-contained so that any UI (GUI, console, etc.) only have to use the ControlInterface of the game package. This design makes the GUI and engine nearly independent from each other. Logical changes in the Mastermind engine don't affect the GUI.  
+[**Controller**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/game) - a Mastermind game engine. It is self-contained so that any UI (GUI, console, etc.) only have to use the ControlInterface of the game package. This design makes the GUI and engine nearly independent from each other. Logical changes in the Mastermind engine don't affect the GUI.  
 * **Game package**
-   * ControlInterface - the main interface to control the game flow. This class provides all the functions for a game. This is the only public class in the game package. This design is used to provide a single interface for a frontend (or an AI) which guarantees a correct and save execution.
+   * ControlInterface - the main interface to control the game flow. This class provides all the functions for a game. This is the only public class in the game package. This design is used to provide a single interface for a frontend (or an AI) which guarantees a correct and safe execution.
    * Game - game-engine class, controls the game flow.
    * GameField - the actual game field. This includes the guess rows and the result rows. The active row number is stored here also.
    * HTTPUtils - low-level class-util that handles all http work for obtaining results without third-party libs.
@@ -44,7 +43,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
    * GeneticSolver - a genetic solving algorithm.
    * RandomGuesses - a "solving algorithm" that makes random guesses.
 
-[**Random Number API Integration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
+[**Random Number API Integration**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/game/SecretCode.java)  
 The number combination is generated from https://www.random.org/clients/http/api/  API. Random.org is a true random number generator that generates randomness from atmospheric noise. The call is made with the url I created based on the needed parameters: num, min, max, col, base, format, rnd. The strings I got back from the API were written in one column, therefore I added them to an array.  
 ```java
 // Parameters for query, num = 4 and max = 7 assigned by default 
@@ -72,7 +71,7 @@ The number combination is generated from https://www.random.org/clients/http/api
         return numbers;
     }
 ```
-[**Color Enumeration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
+[**Color Enumeration**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/common/Color.java)  
 Represents the numbers used in the game engine (secret code) and unique colors assigned to each of them bonded together in enumeration type. Randomly generated secret code will be converted from integer primitive data type into an enumerated object that contains two parameters: the integer value and the unique color value assigned to it. The color value is the RGB value representing the color in the default SRGB ColorModel. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue. These values are equal to the java.awt.Color.getRGB().
 
 ## Extensions Implemented
@@ -91,18 +90,17 @@ Represents the numbers used in the game engine (secret code) and unique colors a
 * Sound effects, detailed user manual, and UML diagrams.
 
 ## AI Implementation
-AI generates a valid guess based on previous guesses. Following algorithms where implemented:
 
-[**Genetic Algorithm**](https://en.wikipedia.org/wiki/Genetic_algorithm)  
+[**Genetic Algorithm**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/ai/GeneticSolver.java)  
 The algorithm itself is pretty straightforward, but the concept is exciting. Inspired by the paper "Efficient solutions for Mastermind using genetic algorithms" by Lotte Berghman, Dries Goossens, Roel Leus. This algorithm evolves the population by comparing every next guess with the previous one by using the following techniques:  
-* _**Mutation**._ Replaces the digit of one randomly chosen position by a random other digit.
+* _**Mutation**._ Replaces the digit of one randomly chosen position by a random another digit.
 * _**Permutation**._ The colors of two random positions are switched
 * _**Inversion**._ Two positions are randomly picked, and the sequence of colors between these positions is inverted.
 * _**One-point crossover**._ A single crossover point on both parents' organism strings is selected. All data beyond that point in either organism string is swapped between the two parent organisms. The resulting organisms are the children. 
 * _**Two-point crossover**._ Two points are selected on the parent organism strings. Everything between the two points is swapped between the parent organisms, rendering two-child organisms. A code c is eligible or feasible if it results in the same values for Xk and Yk for all guesses k that have been played up till that stage if c was the secret code. X is the number of exact matches. Y is the number of guesses which are the right color but in the wrong position.
 ![](images/readme10.jpg)
 
-[**Brute-force Search Algorithm**](https://en.wikipedia.org/wiki/Brute-force_search)   
+[**Brute-force Search Algorithm**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/ai/Bruteforce.java)   
 Also known as "generate and test" is a very general problem-solving technique that consists of systematically enumerating all possible candidates for the solution and checking whether each candidate satisfies the problem's statement. It generates a guess by "incrementing" the previous guess. If no previous guess available generate "lowest" possible guess. Every color is given a value that makes it possible to generate a "lowest" guess and to "increment" a guess.  
 
 **Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.
