@@ -1,11 +1,11 @@
 # Decoder1
-# Mastermind  
-* ### [Demo Video](https://youtu.be/veBUPgUaIrw)  
-* ### [UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
-* ### [User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)  
-
+# Mastermind    
 Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
+
+* ### [Demo Video](https://youtu.be/veBUPgUaIrw)  
+* ### [UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
+* ### [User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)
 
 ## User Interface  
 ![](images/readme1.jpg)
@@ -21,18 +21,18 @@ Additionally, the player can choose the option to be the Codemaker and watch the
   
 ## Implementation  
 [**MVC Design Pattern**](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf)  
-[**Model**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/common) - common classes to interact with the Mastermind engine:
+[**Model**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine.
   * Color - represents the numbers and colors used in the game engine (bonded together in enum type).
   * Row - represents a single Row with numbers set for the guess.
   
-[**View**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package: game). 
+[**View**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the game engine. Various controls (buttons, sliders, menu, etc.) are implemented so that the user can interact and navigate through the game. The controls also send information to the backend to process API web calls, evaluate user input, and determine results. 
   * MainWindow - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package game). Changes in the GUI elements don't affect the game engine.
-  * how-to - Mastermind User Guide in PDF format with a detailed description of game roles and all the elements of the game. Automatically opens if the user selects "Help" -> "How To Play" at the game control menu panel.
+  * how-to - user guide in PDF format with a detailed description of the roles and all the elements of the game. Automatically opens if the user selects *Help → How To Play* at the game control menu panel.
   
 [**Controller**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/game) - a Mastermind game engine. It is self-contained so that any UI (GUI, console, etc.) only have to use the ControlInterface of the game package. This design makes the GUI and engine nearly independent from each other. Logical changes in the Mastermind engine don't affect the GUI.  
 * **Game package**
-   * ControlInterface - he main interface to control the game flow. This class provides all the functions for a game. This is the only public class in the game package. This design is used to provide a single interface for a frontend (or an AI) which guarantees a correct and save execution.
-   * Game - game-engine class. Controls the game flow.
+   * ControlInterface - the main interface to control the game flow. This class provides all the functions for a game. This is the only public class in the game package. This design is used to provide a single interface for a frontend (or an AI) which guarantees a correct and save execution.
+   * Game - game-engine class, controls the game flow.
    * GameField - the actual game field. This includes the guess rows and the result rows. The active row number is stored here also.
    * HTTPUtils - low-level class-util that handles all http work for obtaining results without third-party libs.
    * SecretCode - this class represents the secret code the player has to guess.
@@ -73,17 +73,16 @@ The number combination is generated from https://www.random.org/clients/http/api
     }
 ```
 [**Color Enumeration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
-Represents the numbers and unique colors assigned to them used in the game engine (bonded together in enum type). Randomly generated secret code will be converted from integer primitive data type into an enumerated object that contains two parameters: the integer value and the unique color value assigned to it. The color value is the RGB value representing the color in the default SRGB ColorModel. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue. These values are equal to the java.awt.Color.getRGB().
+Represents the numbers used in the game engine (secret code) and unique colors assigned to each of them bonded together in enumeration type. Randomly generated secret code will be converted from integer primitive data type into an enumerated object that contains two parameters: the integer value and the unique color value assigned to it. The color value is the RGB value representing the color in the default SRGB ColorModel. Bits 24-31 are alpha, 16-23 are red, 8-15 are green, 0-7 are blue. These values are equal to the java.awt.Color.getRGB().
 
 ## Extensions Implemented
-* Simple AI was added - a player can choose the option to be the codemaker, set the secret code and watch the AI breaking the code.  
+* Simple AI was added: a player can choose the option to be the codemaker, set the secret code and watch the AI breaking the code.  
 * Configurable "difficulty levels" where added to adjust:
   * the number of digits in the secret code (1-8), 
   * the range of numbers that are used to generate the code (1-10), 
   * the number of attempts (1-10), 
   * use of duplicate numbers (allowed / not allowed).
-* Timer countdown: 3 minutes allowed for one game, when time is up game is terminated, but a player can stop the timer if he/she doesn't want to time the game.
-* A player is prevented from accessing the input form after guessing the correct combination or when they reach 10 tries.
+* Timer countdown: 3 minutes allowed for one game, when time is up game is terminated, but a player can stop the timer if he/she doesn't want to time the game. A player is prevented from accessing the input form after guessing the correct combination or exceeding the allowed number of tries.
 * Validation of a player's guess: before checking the result of the guess a player can ask AI to validate it (was it good or bad) and adjust the guess according to the validation.
 * Hints: a player has an option to use AI to set the row for him/her and the option to set the last guess.
 * Numbers represented as colored pegs with numbers titled on them for convenience.
