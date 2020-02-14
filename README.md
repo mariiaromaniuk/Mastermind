@@ -1,8 +1,9 @@
 # Decoder1
-# InMastermind  
+# Mastermind  
 * ### [Demo Video](https://youtu.be/veBUPgUaIrw)  
 * ### [UML Diagram](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf) 
 * ### [User Manual](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/gui/how-to.pdf)  
+
 Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
@@ -19,6 +20,30 @@ Additionally, the player can choose the option to be the Codemaker and watch the
 
   
 ## Implementation  
+[**MVC Design Pattern**](https://github.com/mariiaromaniuk/Decoder1/blob/master/uml%20diagram/UML%20Diagram.pdf)  
+[**Model**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/common) - common classes to interact with the Mastermind engine:
+  * Color - represents the numbers and colors used in the game engine (bonded together in enum type).
+  * Row - represents a single Row with numbers set for the guess.
+  
+[**View**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/gui) - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package: game). 
+  * MainWindow - contains all GUI elements and functions that a user needs to interact with the Mastermind game engine (package game). Changes in the GUI elements don't affect the game engine.
+  * how-to - Mastermind User Guide in PDF format with a detailed description of game roles and all the elements of the game. Automatically opens if the user selects "Help" -> "How To Play" at the game control menu panel.
+  
+[**Controller**](https://github.com/mariiaromaniuk/Decoder1/tree/master/src/game) - a Mastermind game engine. It is self-contained so that any UI (GUI, console, etc.) only have to use the ControlInterface of the game package. This design makes the GUI and engine nearly independent from each other. Logical changes in the Mastermind engine don't affect the GUI.  
+* **Game package**
+   * ControlInterface - he main interface to control the game flow. This class provides all the functions for a game. This is the only public class in the game package. This design is used to provide a single interface for a frontend (or an AI) which guarantees a correct and save execution.
+   * Game - game-engine class. Controls the game flow.
+   * GameField - the actual game field. This includes the guess rows and the result rows. The active row number is stored here also.
+   * HTTPUtils - low-level class-util that handles all http work for obtaining results without third-party libs.
+   * SecretCode - this class represents the secret code the player has to guess.
+   * Settings - contains all settings of the game.  
+* **AI package**
+   * SolvingAlgorithm - this interface describes how a solving algorithm has to be implemented. It has to be able to generate and make a valid guess based on previous guesses interacting with the ControlInterface.
+   * Bruteforce - a solving algorithm using the Brute-force search technique.
+   * Clues - checks if the guess is valid or makes no sense in the context of previous guesses and results.
+   * GeneticSolver - a genetic solving algorithm.
+   * RandomGuesses - a "solving algorithm" that makes random guesses.
+
 [**Random Number API Integration**](https://github.com/mariiaromaniuk/Decoder1/blob/master/src/common/Color.java)  
 The number combination is generated from https://www.random.org/clients/http/api/  API. Random.org is a true random number generator that generates randomness from atmospheric noise. The call is made with the url I created based on the needed parameters: num, min, max, col, base, format, rnd. The strings I got back from the API were written in one column, therefore I added them to an array.  
 ```java
