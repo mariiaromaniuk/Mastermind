@@ -38,8 +38,8 @@ import java.util.Date;
 
 public class MainWindow extends javax.swing.JFrame {
     /*
-     * The delay between two guesses (if the makeGuess()-Function of the AI was fast enough).
      * Object variables used by various functions.
+     * The delay between two guesses (if the makeGuess()-function of the AI was fast enough)
      */
     private final int AI_GUESS_DELAY = 500;
     private static ControlInterface ci = new ControlInterface();
@@ -112,9 +112,10 @@ public class MainWindow extends javax.swing.JFrame {
         aboutDialog.setResizable(false);
         JButton closeButton = new JButton("Close");
         JLabel aboutLabel = new JLabel(
-                "<html>Created by Mariia Romaniuk<br />"
-                + "for REACH LinkedIn<br />"
-                + "Version: V1 05.18.2020<br />");
+                "<html><b>Developer:</b> Mariia Romaniuk<br />"
+                + "<b>Project:</b> REACH Coding Challenge<br />"
+                + "<b>Version:</b> V1 05.18.2020<br />"
+                + "<b>Review:</b> Caleb Cameron, Joe Kuang");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
