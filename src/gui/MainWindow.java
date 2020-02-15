@@ -1616,13 +1616,8 @@ public class MainWindow extends javax.swing.JFrame {
 
 
     /*
-     * Parse command line arguments, change to "Nimbus" Look & Feel
-     * (if installed) and initialize the main window with a new standard game.
-     *
-     * @param args The command line arguments.
-     * -d = Show debug messages.
-     * -b repetitions, max tries, game width, color quantity, double colors = AI benchmark
-     * Example: -b 100 10 4 6 True
+     * Change to "Nimbus" Look & Feel(if installed) 
+     * and initialize the main window with a new standard game
      */
     public static void main(String args[]) {
 
