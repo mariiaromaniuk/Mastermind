@@ -1327,71 +1327,6 @@ public class MainWindow extends javax.swing.JFrame {
         aiTimer.start();
     }
 
-    /*
-     * Sub-function to parse the arguments from the command line.
-     *
-     * args - command line arguments from the main function.
-     * see #main(java.lang.String[])
-     */
-    private static void parseArgs(String args[]) {
-        // -d = debug?
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-d") == true) {
-                // Arguments contain "-d" Debug mode on.
-                System.out.println("Debug mode on");
-                Debug.setDebug(true);
-            }
-        }
-        // -b = benchmark?
-        for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("-b") == true) {
-                try {
-                    if ((args.length - 1 - i) >= 5) {
-                        // There are at least 5 following args for -b.
-                        int gameRepetitions = Integer.parseInt(args[i+1]);
-                        int maxTries = Integer.parseInt(args[i+2]);
-                        int gameWidth = Integer.parseInt(args[i+3]);
-                        int range = Integer.parseInt(args[i+4]);
-                        boolean doubleColors = Boolean.parseBoolean(args[i+5]);
-
-                        // Check input.
-                        if (gameRepetitions < 1) {
-                            throw new Exception("There has to be at " +
-                                    "least one repetition");
-                        }
-                        if (maxTries < 1) {
-                            throw new Exception("There has to be at " +
-                                    "least one try to solve a game");
-                        }
-                        if (gameWidth > range && doubleColors == false) {
-                            throw new Exception("Too few colors or too wide " +
-                                    "game width. Use double colors or " +
-                                    "change color quantity / game width " +
-                                    "settings.");
-                        }
-                        // Set settings
-                        ci.setSettingMaxTries(maxTries);
-                        ci.setSettingWidth(gameWidth);
-                        ci.setSettingColQuant(range);
-                        ci.setSettingDoubleCols(doubleColors);
-                        // Start benchmark
-                        System.out.println("Starting benchmark");
-                        GeneticSolver solve = new GeneticSolver(ci);
-                        solve.geneticSolverTest(gameRepetitions);
-                        System.exit(0);
-                    } else {
-                        throw new Exception("Not enough benchmark arguments");
-                    }
-
-                } catch (Exception e) {
-                    Debug.errorPrint("Benchmark arguments error");
-                    System.out.println(""+e.toString());
-                    System.exit(1);
-                }
-            }
-        }
-    }
-
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Menu actions (by click)">
@@ -1690,8 +1625,6 @@ public class MainWindow extends javax.swing.JFrame {
      * Example: -b 100 10 4 6 True
      */
     public static void main(String args[]) {
-
-        parseArgs(args);
 
         try {
             // Set the look of the main window
