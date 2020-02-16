@@ -40,12 +40,13 @@ public class Clues {
     }
 
     /*
-     * Compare two Rows to another
-     * a - the guess Row
-     * b - the secret code Row
-     * return:
-     * [0] is the number of black pegs
-     * [1] is the number of white pegs
+     * compare - creates and returns array where
+     * result[0] - number of blacks (matching colors at the matching positions),
+     * result[1] - matching colors at the different positions
+     *
+     * Compare number of blacks and number of whites for a[i] row and b[i]
+     * The difference is an indication of the quality of the a[i] row
+     * if these differences are zero for each previous guess then the code is eligible.
      */
     private static int[] compare(Row a, Row b) {
         int[] result = {0, 0};
