@@ -61,8 +61,8 @@ public class GeneticSolver implements SolvingAlgorithm {
         initResults();
     }
 
-    // Initialize the arrays "blacks" and "whites" with values from the GameField.
-    // The arrays "blacks" and "whites" are needed to accelerate the processing.
+    // Initialize the arrays "blacks" and "whites" with values from the GameField
+    // The arrays "blacks" and "whites" are needed to accelerate the processing
     public void initResults() {
         for (int i = 0; i < ci.getActiveRowNumber(); i++) {
             blacks[i] = ci.getResultRow(i)
@@ -135,6 +135,89 @@ public class GeneticSolver implements SolvingAlgorithm {
         guess = feasibleCodes.get((int) (Math.random() * feasibleCodes.size()));
         Debug.dbgPrint("AI: guess is " + guess);
         return guess;
+    }
+
+    /*
+     * Generates a Row with random colors
+     * Generates a Row with the current width setting. The available colors are
+     * determined by the colorQuant setting. If the doubleColors setting
+     * is false, only different colors are set.
+     *
+     * Warning: Using this function can take up to
+     * several minutes, especially if you have set a high width,
+     * many colors or when you run the game on a slow computer.
+     * This is not a bug, just a side effect of the complex
+     * algorithm the AI is using.
+     *
+     * return: a Row with random colors
+     */
+    private Row generateRndGuess() {
+        Row guess = new Row(width);
+        // Prepare values to fit range-rule
+        Color[] values = new Color[colQuant];
+        Color[] all = Color.values();
+        System.arraycopy(all, 0, values, 0, colQuant);
+        // Do the actual code generation
+        int i = 0;
+        while (i < width) {
+            Color now = values[(int) (Math.random() * colQuant)];
+            if (guess.containsCol(now) > 0) {
+                if (doubleCols == true) {
+                    guess.setColAtPos(i++, now);
+                }
+            } else {
+                guess.setColAtPos(i++, now);
+            }
+        }
+        return guess;
+    }
+
+    // Initializes the Population with random Rows
+    // feasibleCodes gets purged
+    private void initPopulation() {
+        // init population with random guesses.
+        int i = 0;
+        feasibleCodes.clear();
+        while (i < POPULATION_SIZE) {
+            population[i] = generateRndGuess();
+            i++;
+        }
+    }
+
+    /*
+     * Calculates the fitness of every Row in population.
+     * A fitness-value and the corresponding element of the population array
+     * both have the same index in their respective arrays.
+     *
+     * It should resemble the function as described in the paper:
+     * https://lirias.kuleuven.be/bitstream/123456789/164803/1/KBI_0806.pdf
+     * Efficient solutions for Mastermind using genetic algorithms on page 6
+     *
+     * Compare each Row of population array with each row existing
+     * ci.getGameFieldRow(j) returns colors of this row
+     * compare - creates and returns array where
+     * result[0] - number of blacks (matching colors at the matching positions),
+     * result[1] - matching colors at the different positions
+     *
+     * Compare number of blacks and number of whites for population[i] row and row[j]
+     * The difference is an indication of the quality of the population[i] row
+     * if these differences are zero for each previous guess then the code is eligible.
+     */
+    private void calcFitness() {
+        int xtmp;
+        int ytmp;
+        for (int i = 0; i < POPULATION_SIZE; i++) {
+            xtmp = 0;
+            ytmp = 0;
+
+            for (int j = 0; j < ci.getActiveRowNumber(); j++) {
+                int[] result = compare(
+                        population[i], ci.getGameFieldRow(j));
+                xtmp += Math.abs(result[0] - blacks[j]);//+width * j;
+                ytmp += Math.abs(result[1] - whites[j]);//+width * j;
+            }
+            fitness[i] = (xtmp + ytmp);
+        }
     }
 
     /*
@@ -256,7 +339,7 @@ public class GeneticSolver implements SolvingAlgorithm {
     /*
      * Permutation. The colors of two random positions are switched
      *
-     * newPopulation - the population array that will be manipulated.
+     * newPopulation - the population array that will be manipulated
      * popPos - the position of the Row within the population array that will be changed
      */
     private void permutation(Row[] newPopulation, int popPos) {
@@ -386,31 +469,6 @@ public class GeneticSolver implements SolvingAlgorithm {
     }
 
     /*
-     * Calculates the fitness of every Row in population.
-     * A fitness-value and the corresponding element of the population array
-     * both have the same index in their respective arrays.
-     *
-     * It should resemble the function as described in the paper:
-     * https://lirias.kuleuven.be/bitstream/123456789/164803/1/KBI_0806.pdf
-     * Efficient solutions for Mastermind using genetic algorithms on page 6.
-     */
-    private void calcFitness() {
-        int xtmp;
-        int ytmp;
-        for (int i = 0; i < POPULATION_SIZE; i++) {
-            xtmp = 0;
-            ytmp = 0;
-            for (int j = 0; j < ci.getActiveRowNumber(); j++) {
-                int[] result = compare(
-                        population[i], ci.getGameFieldRow(j));
-                xtmp += Math.abs(result[0] - blacks[j]);//+width * j;
-                ytmp += Math.abs(result[1] - whites[j]);//+width * j;
-            }
-            fitness[i] = (xtmp + ytmp);
-        }
-    }
-
-    /*
      * Compares two Rows.
      * result[0] is incremented if an equal value(color) is at an equal position
      * result[1] is incremented if an equal value is an different positions
@@ -418,10 +476,10 @@ public class GeneticSolver implements SolvingAlgorithm {
      * result[1] are the white pegs
      * http://en.wikipedia.org/wiki/Mastermind_%28board_game%29#Gameplay_and_rules
      *
-     * a - Row Guesscode.
-     * b - Row Secretcode.
+     * a - Row Guesscode
+     * b - Row Secretcode
      * return:
-     * [0] is the number of black pegs,
+     * [0] is the number of black pegs
      * [1] is the number of white pegs
      */
     private int[] compare(Row a, Row b) {
@@ -432,6 +490,8 @@ public class GeneticSolver implements SolvingAlgorithm {
         System.arraycopy(a.getColors(), 0, code, 0, width);
         System.arraycopy(b.getColors(), 0, secret, 0, width);
 
+        // Check for black ones first - same color, same position
+        // and assign checked to null
         for (int i = 0; i < width; i++) {
             if (code[i] == secret[i]) {
                 result[0]++;
@@ -455,56 +515,10 @@ public class GeneticSolver implements SolvingAlgorithm {
         return result;
     }
 
-    // Initializes the Population with random Rows
-    // feasibleCodes gets purged
-    private void initPopulation() {
-        // init population with random guesses.
-        int i = 0;
-        feasibleCodes.clear();
-        while (i < POPULATION_SIZE) {
-            population[i] = generateRndGuess();
-            i++;
-        }
-    }
-
-    /*
-     * Generates a Row with random colors
-     * Generates a Row with the current width setting. The available colors are
-     * determined by the colorQuant setting. If the doubleColors setting
-     * is false, only different colors are set.
-     *
-     * Warning: Using this function can take up to
-     * several minutes, especially if you have set a high width,
-     * many colors or when you run the game on a slow computer.
-     * This is not a bug, just a side effect of the complex
-     * algorithm the AI is using.
-     *
-     * return: a Row with random colors
-     */
-    private Row generateRndGuess() {
-        Row guess = new Row(width);
-        // Prepare values to fit range-rule
-        Color[] values = new Color[colQuant];
-        Color[] all = Color.values();
-        System.arraycopy(all, 0, values, 0, colQuant);
-        // Do the actual code generation
-        int i = 0;
-        while (i < width) {
-            Color now = values[(int) (Math.random() * colQuant)];
-            if (guess.containsCol(now) > 0) {
-                if (doubleCols == true) {
-                    guess.setColAtPos(i++, now);
-                }
-            } else {
-                guess.setColAtPos(i++, now);
-            }
-        }
-        return guess;
-    }
-
     /*
      * This is a Quicksort that sorts the fitness and pop arrays
      * by the criteria in the fitness-array
+     * Divide, sort, put together sorted
      *
      * fitness - an int array
      * pop - an array of Rows
@@ -588,4 +602,3 @@ public class GeneticSolver implements SolvingAlgorithm {
         pop[b] = tmp;
     }
 }
-
