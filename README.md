@@ -116,9 +116,10 @@ Also known as "generate and test" is a very general problem-solving technique th
 
 ## Further Development  
 * Keep track of scores and provide a leaderboard (handle multiple user sessions and store the results in a database).   
-* Use prerecorded audio files to help explain the current game state to players with vision loss.  
+* Utilize Google Cloud Text-to-Speech Java API and/or prerecorded audio files to help explain the current game state to players with vision loss.  
 * Option to generate a secret code locally in case if internet connection is not available.
 * Adjust the timer countdown according to the difficulty level.  
+* Speed test for AI.
 
 ## How To Run
 * Download the Mastermind project folder from this Github repository
