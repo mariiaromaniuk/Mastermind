@@ -112,7 +112,13 @@ In this equation we sum over the sequences from previous rounds. Number of color
 [**Brute-force Search Algorithm**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/ai/Bruteforce.java)   
 Also known as "generate and test" is a very general problem-solving technique that consists of systematically enumerating all possible candidates for the solution and checking whether each candidate satisfies the problem's statement. It generates a guess by "incrementing" the previous guess. If no previous guess available generate "lowest" possible guess. Every color is given a value that makes it possible to generate a "lowest" guess and to "increment" a guess.  
 
-**Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.
+**Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.  
+
+## Further Development  
+* Keep track of scores and provide a leaderboard (handle multiple user sessions and store the results in a database).   
+* Use prerecorded audio files to help explain the current game state to players with vision loss.  
+* Option to generate a secret code locally in case if internet connection is not available.
+* Adjust the timer countdown according to the difficulty level.  
 
 ## How To Run
 * Download the Mastermind project folder from this Github repository
