@@ -81,7 +81,8 @@ Represents the numbers used in the game engine (secret code) and unique colors a
   * the number of digits in the secret code (1-8), 
   * the range of numbers that are used to generate the code (1-10), 
   * the number of attempts (1-10), 
-  * use of duplicate numbers (allowed / not allowed).
+  * use of duplicate numbers (allowed / not allowed).  
+* Keeping track of scores and a leaderboard (handles multiple user sessions and store the results in a database).
 * Timer countdown: 3 minutes allowed for one game, when time is up game is terminated, but a player can stop the timer if he/she doesn't want to time the game. A player is prevented from accessing the input form after guessing the correct combination or exceeding the allowed number of tries.
 * Validation of a player's guess: before checking the result of the guess a player can ask AI to validate it (was it good or bad) and adjust the guess according to the validation.
 * Hints: a player has an option to use AI to set the row for him/her and the option to set the last guess.
@@ -114,8 +115,7 @@ Also known as "generate and test" is a very general problem-solving technique th
 
 **Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.  
 
-## Further Development  
-* Keep track of scores and provide a leaderboard (handle multiple user sessions and store the results in a database).   
+## Further Development     
 * Utilize Google Cloud Text-to-Speech Java API and/or prerecorded audio files to help explain the current game state to players with vision loss.  
 * Option to generate a secret code locally in case if internet connection is not available.
 * Adjust the timer countdown according to the difficulty level.  
