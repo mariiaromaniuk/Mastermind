@@ -7,6 +7,7 @@ import common.Color;
 import common.Debug;
 import common.Row;
 import game.ControlInterface;
+import game.Database;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -38,8 +39,8 @@ import java.util.Date;
 
 public class MainWindow extends javax.swing.JFrame {
     /*
+     * The delay between two guesses (if the makeGuess()-Function of the AI was fast enough).
      * Object variables used by various functions.
-     * The delay between two guesses (if the makeGuess()-function of the AI was fast enough)
      */
     private final int AI_GUESS_DELAY = 500;
     private static ControlInterface ci = new ControlInterface();
@@ -64,6 +65,8 @@ public class MainWindow extends javax.swing.JFrame {
     private JLabel gameState;
     private Timer aiTimer;
     private Timer timer;
+    private Login login;
+    Database db = game.Database.getInstance();
     final long THREE_MINUTES = 180000;
     long time = THREE_MINUTES - 1000;
 
@@ -80,7 +83,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="initComponents">
+    // <editor-fold defaultstate="collapsed" desc="Initialize all GUI components">
 
     /*
      * Init all GUI components (Constructor sub-function, called only once).
@@ -104,6 +107,9 @@ public class MainWindow extends javax.swing.JFrame {
         gamePlaceholder = new JLabel();
         gameState = new JLabel();
         gameModeComboBox = new JComboBox<String>();
+        login = new Login();
+        db.createGameEntry(login.getName());
+
 
         // About Dialog
         aboutDialog.setTitle("About");
@@ -113,9 +119,9 @@ public class MainWindow extends javax.swing.JFrame {
         JButton closeButton = new JButton("Close");
         JLabel aboutLabel = new JLabel(
                 "<html><b>Developer:</b> Mariia Romaniuk<br />"
-                + "<b>Project:</b> REACH Coding Challenge<br />"
-                + "<b>Version:</b> V1 05.18.2020<br />"
-                + "<b>Review:</b> Caleb Cameron, Joe Kuang");
+                        + "<b>Project:</b> REACH Coding Challenge<br />"
+                        + "<b>Version:</b> V1 05.18.2020<br />"
+                        + "<b>Review:</b> Caleb Cameron, Joe Kuang");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
@@ -647,7 +653,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Init functions">
+    // <editor-fold defaultstate="collapsed" desc="Initialize/update GUI components that may be affected by changed settings">
 
     /*
      * Initialize all GUI components for a new game.
@@ -838,7 +844,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="aboutDialog">
+    // <editor-fold defaultstate="collapsed" desc="About Dialog action performed">
 
     /*
      * Show the about dialog.
@@ -860,7 +866,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="settingsDialog">
+    // <editor-fold defaultstate="collapsed" desc="Settings Dialog action performed">
 
     /*
      * Show the settings dialog.
@@ -917,7 +923,7 @@ public class MainWindow extends javax.swing.JFrame {
             // Too small range of digits (without duplicates)
             // for the number of digits in the combination.
             JOptionPane.showMessageDialog(null,
-                    "Too few digits to choose from or too much digits in the combination.\n" +
+                    "Too few numbers to choose from or too much numbers in the combination.\n" +
                             "Use duplicates or change number of digits in the combination" +
                             " / game width settings.",
                     "Error:", JOptionPane.ERROR_MESSAGE);
@@ -928,7 +934,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Load / Save">
+    // <editor-fold defaultstate="collapsed" desc="Load/Save Dialog action performed">
 
     /*
      * Show file browser dialog and load chosen game.
@@ -983,7 +989,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     // </editor-fold>
 
-    // <editor-fold defaultstate="collapsed" desc="Sub functions">
+    // <editor-fold defaultstate="collapsed" desc="Sub Functions">
 
     /*
      * Checks if the complete active Row in the game table is set with a color.
@@ -1154,6 +1160,8 @@ public class MainWindow extends javax.swing.JFrame {
                 ImageIcon in = new ImageIcon("resources/In.png");
                 JOptionPane.showMessageDialog(null, null, "You won!",
                         JOptionPane.INFORMATION_MESSAGE, in);
+                db.incrementGuessScore(login.getName());
+                //System.out.println(db.getGuessScore(login.getName()));
             }
             this.setEnabled(true);
         } else if (state == -1) {
@@ -1617,7 +1625,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 
     /*
-     * Change to "Nimbus" Look & Feel(if installed) 
+     * Change to "Nimbus" Look & Feel(if installed)
      * and initialize the main window with a new standard game
      */
     public static void main(String args[]) {
@@ -1635,9 +1643,12 @@ public class MainWindow extends javax.swing.JFrame {
             Debug.errorPrint("Nimbus Look & Feel not found. Fallback.");
         }
 
+        // Create and display the login form
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainWindow().setVisible(true);
+
+                new Login().setVisible(true);
+
             }
         });
     }
