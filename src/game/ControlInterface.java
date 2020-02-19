@@ -1,8 +1,9 @@
 package game;
 
-import common.Row;
 import common.Color;
 import common.Debug;
+import common.Row;
+
 import java.io.*;
 
 
@@ -201,6 +202,14 @@ public class ControlInterface {
      */
     public boolean getSettingAiMode() {
         return game.settings.getAiMode();
+    }
+
+    public boolean getSettingDoublePlayerMode() {
+        return game.settings.getDoublePlayerMode();
+    }
+
+    public void setSettingDoublePlayerMode(boolean status) {
+        game.settings.setDoublePlayerMode(status);
     }
 
     /*
