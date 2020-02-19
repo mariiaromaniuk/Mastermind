@@ -214,6 +214,7 @@ public class MainWindow extends javax.swing.JFrame {
         DefaultComboBoxModel<String> dcbm = new DefaultComboBoxModel<String>();
         dcbm.addElement("H: Codebreaker - AI: Codemaker");
         dcbm.addElement("H: Codemaker - AI: Codebreaker");
+        dcbm.addElement("H: Codemaker - H: Codebreaker");
         gameModeComboBox.setModel(dcbm);
 
         JButton saveButton = new JButton("Apply (New Game)");
@@ -884,6 +885,8 @@ public class MainWindow extends javax.swing.JFrame {
         gameTriesSlider.setValue(ci.getSettingMaxTries());
         gameModeComboBox.setSelectedIndex(
                 ci.getSettingAiMode() == true ? 1 : 0);
+        gameModeComboBox.setSelectedIndex(
+                ci.getSettingDoublePlayerMode() == true ? 1 : 0);
         // Show settings dialog:
         settingsDialog.pack();
         settingsDialog.setVisible(true);
@@ -915,6 +918,8 @@ public class MainWindow extends javax.swing.JFrame {
             ci.setSettingWidth(width);
             ci.setSettingMaxTries(gameTriesSlider.getValue());
             ci.setSettingAiMode(
+                    gameModeComboBox.getSelectedIndex() == 1 ? true : false);
+            ci.setSettingDoublePlayerMode(
                     gameModeComboBox.getSelectedIndex() == 1 ? true : false);
             // Init new game.
             ci.newGame();
@@ -1516,11 +1521,10 @@ public class MainWindow extends javax.swing.JFrame {
      */
     private void secretCodeButtonsActionPerformed(
             java.awt.event.ActionEvent evt) {
-        if (ci.getSettingAiMode() &&
-                ci.getGameEnded() == false) {
+        if (ci.getSettingAiMode() && ci.getGameEnded() == false) {
             if (ci.getSettingDoubleCols() == false) {
                 // Check for double colors
-                for (int i = 0; i < secretCodeButtons.length; i++){
+                for (int i = 0; i < secretCodeButtons.length; i++) {
                     java.awt.Color c = secretCodeButtons[i].getBackground();
                     if (c.getRGB() != Color.Null.getRGB() &&
                             c.getRGB() == chosenColButton.getBackground().getRGB()) {
@@ -1535,7 +1539,7 @@ public class MainWindow extends javax.swing.JFrame {
             button.setText(chosenColButton.getText());
             gameState.setText("Set the secret code and watch the AI.");
             // Check if secret code is set
-            for (int i = 0; i < secretCodeButtons.length; i++){
+            for (int i = 0; i < secretCodeButtons.length; i++) {
                 if (secretCodeButtons[i].getBackground().getRGB()
                         == Color.Null.getRGB()) {
                     return;
@@ -1544,6 +1548,24 @@ public class MainWindow extends javax.swing.JFrame {
             // Secret code is set. Start AI game
             writeSecretCode();
             doAIGame();
+        } else {
+            // Set numbers and colors
+            JButton button = (JButton) evt.getSource();
+            button.setBackground(chosenColButton.getBackground());
+            button.setText(chosenColButton.getText());
+            gameState.setText("Set the secret code.");
+            // Check if secret code is set
+            for (int i = 0; i < secretCodeButtons.length; i++) {
+                if (secretCodeButtons[i].getBackground().getRGB()
+                        == Color.Null.getRGB()) {
+                    return;
+                }
+            }
+            // Secret code is set. Start the game
+            writeSecretCode();
+            initGameTable();
+            initColorTable();
+            restartTimer();
         }
     }
 
