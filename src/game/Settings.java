@@ -42,6 +42,8 @@ class Settings implements Serializable {
      */
     private boolean aiMode = false;
 
+
+    private boolean doublePlayerMode = false;
     /*
      * Getter for game mode
      * True = AI: Codebreaker, Human: Codemaker
@@ -58,6 +60,14 @@ class Settings implements Serializable {
      */
     public void setAiMode(boolean status) {
         aiMode = status;
+    }
+
+    public void setDoublePlayerMode(boolean status) {
+        doublePlayerMode = status;
+    }
+
+    public boolean getDoublePlayerMode() {
+        return doublePlayerMode;
     }
 
     /*
