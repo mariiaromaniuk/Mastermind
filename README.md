@@ -84,7 +84,8 @@ Represents the numbers used in the game engine (secret code) and unique colors a
   * use of duplicate numbers (allowed / not allowed).  
 * Keeping track of scores and a leaderboard (handles multiple user sessions and store the results in a database).
 * Timer countdown: 3 minutes allowed for one game, when time is up game is terminated, but a player can stop the timer if he/she doesn't want to time the game. A player is prevented from accessing the input form after guessing the correct combination or exceeding the allowed number of tries.
-* Validation of a player's guess: before checking the result of the guess a player can ask AI to validate it (was it good or bad) and adjust the guess according to the validation.
+* Validation of a player's guess: before checking the result of the guess a player can ask AI to validate it (was it good or bad) and adjust the guess according to the validation.  
+* "Two Players" mode: one player sets up the secret code, another takes the role of codebreaker.
 * Hints: a player has an option to use AI to set the row for him/her and the option to set the last guess.
 * Numbers represented as colored pegs with numbers titled on them for convenience.
 * Option to save the game progress to the file or open saved game.
