@@ -1,5 +1,5 @@
 # Mastermind    
-Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. *It utilizes Google Cloud Text-to-Speech Java API and/or prerecorded audio files which allow players with vision loss to navigate and understand the current state of the game that is being played.* This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
+Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. **It utilizes Google Cloud Text-to-Speech API and/or prerecorded audio files which allow blind or visually impaired users to navigate and understand the current state of the game.** This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
 * [**Demo Video**](https://youtu.be/veBUPgUaIrw)  
@@ -120,7 +120,7 @@ Also known as "generate and test" is a very general problem-solving technique th
 **Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.  
 
 ## Further Development     
-* Utilize Google Cloud Text-to-Speech Java API and/or prerecorded audio files to help explain the current game state to players with vision loss.  
+* Utilize Google Cloud Text-to-Speech API to explain the current game state to blind players (in progress).  
 * Speed test for AI.
 
 ## How To Run
