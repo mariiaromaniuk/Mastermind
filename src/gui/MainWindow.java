@@ -80,6 +80,9 @@ public class MainWindow extends javax.swing.JFrame {
         initKeyListener();
         initComponents();
         initNewGame();
+        playSound("audio/phrases/welcome_4digit_code_game.wav");
+        //playSound("phrases/guess_explained.wav");
+        //playSound("phrases/white_black_pegs_explained.wav");
     }
 
 
@@ -408,6 +411,7 @@ public class MainWindow extends javax.swing.JFrame {
                 time -= 1000;
                 if (time == 0-1000){
                     playSound("resources/Lost.wav");
+                    playSound("phrases/goodbye.wav");
                     gameState.setText("Time is up! You lost!");
                     JOptionPane.showMessageDialog(
                             null, "Time is up! You lost!", "Info:",
@@ -1153,7 +1157,8 @@ public class MainWindow extends javax.swing.JFrame {
         if (state == 1) {
             timer.stop();
             revealSecretCode();
-            playSound("resources/Won.wav");
+            //playSound("resources/Won.wav");
+            playSound("audio/phrases/won.wav");
             this.setEnabled(false);
             if (ci.getSettingAiMode() == true) {
                 gameState.setText("AI: I got the code!");
@@ -1670,7 +1675,16 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
 
                 new Login().setVisible(true);
+                
+                /*
+                System.out.println("Generating & deleting audio files...");
 
+                AudioFileBuilder audioFileBuilder = new AudioFileBuilder();
+                audioFileBuilder.createPhraseAudioFiles();
+                audioFileBuilder.deleteOldPhraseAudioFiles();
+
+                System.out.println("Completed audio file generation & deletion!");
+                */
             }
         });
     }
