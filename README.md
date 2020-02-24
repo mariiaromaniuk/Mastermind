@@ -1,5 +1,5 @@
 # Mastermind    
-Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. It utilizes Google Cloud Text-to-Speech Java API and/or prerecorded audio files which allow players with vision loss to navigate and understand the current state of the game that is being played. This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
+Mastermind Game implementation in Java Swing including an AI, which can be played by a user "against" the computer and vice versa. *It utilizes Google Cloud Text-to-Speech Java API and/or prerecorded audio files which allow players with vision loss to navigate and understand the current state of the game that is being played.* This is a game where a player tries to guess the number combination. Each guess results in feedback, narrowing down the possibilities of the code. The computer provides feedback whether the player had guess a number correctly, or/and a number and its position correctly. A player must guess the right number combinations within 10 attempts to win the game.
 Additionally, the player can choose the option to be the Codemaker and watch the AI breaking the code.  
 
 * [**Demo Video**](https://youtu.be/veBUPgUaIrw)  
@@ -90,8 +90,9 @@ Represents the numbers used in the game engine (secret code) and unique colors a
 * Hints: a player has an option to use AI to set the row for him/her and the option to set the last guess.  
 * Option to generate a secret code locally in case if internet connection is not available. 
 * Numbers represented as colored pegs with numbers titled on them for convenience.
-* Option to save the game progress to the file or open saved game.
 * A player can use a keyboard instead of GUI buttons to control the game.   
+* The timer countdown is agjusted depending on the game difficulty level.  
+* Option to save the game progress to the file or open saved game.
 * Sound effects, detailed user manual, and UML diagrams.
 
 ## AI Implementation
@@ -120,7 +121,6 @@ Also known as "generate and test" is a very general problem-solving technique th
 
 ## Further Development     
 * Utilize Google Cloud Text-to-Speech Java API and/or prerecorded audio files to help explain the current game state to players with vision loss.  
-* Adjust the timer countdown according to the difficulty level.  
 * Speed test for AI.
 
 ## How To Run
