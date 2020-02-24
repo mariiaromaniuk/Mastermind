@@ -115,10 +115,16 @@ class SecretCode implements Serializable {
     private void generateCode(int colQuant, int width, boolean duplicates) {
 
         try {
-            // Generate random numbers combination and save it in the array of integers
-            // range is 8 (numbers from 0 to 7 inclusive)
+            /*
+             * Generate random numbers combination and save it in the array of integers
+             * range is 8 (numbers from 0 to 7 inclusive)
+             * Comment it out to generate the secret code locally
+             */
             int[] code = generate(width, colQuant-1);
             secretCode = new Row(width);
+            
+            // Uncomment to generate the secret code locally:
+            // int[] code = generateCodeLocally(width, colQuant-1);
 
             // Prepare values to fit colorQuant-rule
             Color[] values = new Color[colQuant];
@@ -143,6 +149,23 @@ class SecretCode implements Serializable {
             ex.getMessage();
         }
 
+    }
+    
+    // Generate the secret code locally
+    private int[] generateCodeLocally (int num, int max){
+
+        int[] numbers = new int[num];
+        ArrayList<Integer> list = new ArrayList<Integer>(max);
+
+        for (int i = 0; i < max; i++){
+            list.add(i);
+        }
+        Collections.shuffle(list);
+
+        for (int i = 0; i < num; i++){
+            numbers[i] = list.get(i);
+        }
+        return numbers;
     }
 
     /*
