@@ -121,15 +121,16 @@ Also known as "generate and test" is a very general problem-solving technique th
 
 ## Further Development     
 * Utilize Google Cloud Text-to-Speech API to explain the current game state to blind players (in progress).  
-* Speed test for AI.
+* Speed test for AI algorithms.
 
 ## How To Run
-* Download the Mastermind project folder from this Github repository
-* Run any Java IDE (tested on IntelliJ IDEA 2019.1.3)
-* Select  *File → New → Project from Existing Sources* 
-* Select _**Mastermind**_ folder in the dialog window and press Open
-* Open main runner class _**MainWindow**_ (*Mastermind → src → gui → MainWindow*)
-* Run the program from there
+* Download the Mastermind project folder from this Github repository.
+* Run any Java IDE (tested on IntelliJ IDEA 2019.1.3).
+* Select  *File → New → Project from Existing Sources.* 
+* Select _**Mastermind**_ folder in the dialog window and press Open.  
+* Module dependency: *File → Project Structure → Modules → Dependencies → Add → JARs or directories → sqlite-jdbc-3.30.1.jar → Apply → Ok.*  
+* Open main runner class _**MainWindow**_ (*Mastermind → src → gui → MainWindow*).
+* Run the program from there.
  
  
 ## Technologies Used
