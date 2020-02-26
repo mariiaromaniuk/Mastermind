@@ -9,9 +9,7 @@ import common.Row;
 import game.ControlInterface;
 import game.Database;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -19,6 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -67,8 +66,7 @@ public class MainWindow extends javax.swing.JFrame {
     private Timer timer;
     private Login login;
     Database db = game.Database.getInstance();
-    final long THREE_MINUTES = 180000;
-    long time = THREE_MINUTES - 1000;
+    long time = 60000;
 
 
     /*
@@ -80,9 +78,34 @@ public class MainWindow extends javax.swing.JFrame {
         initKeyListener();
         initComponents();
         initNewGame();
-        playSound("audio/phrases/welcome_4digit_code_game.wav");
-        //playSound("phrases/guess_explained.wav");
-        //playSound("phrases/white_black_pegs_explained.wav");
+
+        ArrayList<String> files = new ArrayList<String> ();
+        files.add("audio/phrases/welcome_4digit_code_game.wav");
+        files.add("audio/phrases/white_black_pegs_explained.wav");
+        play(files);
+    }
+
+
+    public static void play(ArrayList<String> files){
+        byte[] buffer = new byte[4096];
+        for (String filePath : files) {
+            File file = new File(filePath);
+            try {
+                AudioInputStream is = AudioSystem.getAudioInputStream(file);
+                AudioFormat format = is.getFormat();
+                SourceDataLine line = AudioSystem.getSourceDataLine(format);
+                line.open(format);
+                line.start();
+                while (is.available() > 0) {
+                    int len = is.read(buffer);
+                    line.write(buffer, 0, len);
+                }
+                line.drain();
+                line.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 
@@ -401,7 +424,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         // Init the timer button and start the countdown
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm : ss");
-        JButton timerButton = new JButton(sdf.format(new Date(THREE_MINUTES)));
+        JButton timerButton = new JButton(sdf.format(new Date(time)));
 
         // Reset game timer
         ActionListener al = new ActionListener() {
@@ -636,10 +659,27 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }
 
-
     public void restartTimer() {
-        time = 180000;
-        timer.start();
+        if (ci.getSettingWidth() == 4){
+            time = 60000;
+            timer.start();
+        }
+        else if (ci.getSettingWidth() == 5){
+            time = 120000;
+            timer.start();
+        }
+        else if (ci.getSettingWidth() == 6){
+            time = 180000;
+            timer.start();
+        }
+        else if (ci.getSettingWidth() == 7){
+            time = 240000;
+            timer.start();
+        }
+        else if (ci.getSettingWidth() == 8){
+            time = 300000;
+            timer.start();
+        }
     }
 
     public void playSound(String soundName) {
@@ -1101,11 +1141,13 @@ public class MainWindow extends javax.swing.JFrame {
      * Gets the secret code from the game engine.
      */
     private void revealSecretCode() {
+        //playSound("audio/phrases/the_code_guess_was.wav");
         Color[] secret = ci.getSecretCode().getColors();
         for (int i = 0; i <  ci.getSettingWidth(); i++){
             secretCodeButtons[i].setBackground(
                     new java.awt.Color(secret[i].getRGB()));
             secretCodeButtons[i].setText(secret[i].getNum());
+            //playSound("audio/phrases/" + (secret[i].getNum()) + ".wav");
         }
     }
 
@@ -1289,6 +1331,7 @@ public class MainWindow extends javax.swing.JFrame {
             // If it is a "choose number" key (1, 2, 3, ...)
             if (key-48 >= 0 && key-48 < ci.getSettingColQuant()) {
                 colButtons[key-48].doClick();
+                playSound("audio/numbers/" + (colButtons[key-48].getText()) + ".wav");
             }
             // If it is a "place number" key (a, b, c, ...)
             else if (key-97 >= 0 && key-97 < ci.getSettingWidth()) {
@@ -1297,6 +1340,7 @@ public class MainWindow extends javax.swing.JFrame {
                             [(key - 97) + ci.getSettingWidth()].doClick();
                 } else {
                     secretCodeButtons[key - 48].doClick();
+                    playSound("audio/numbers/" + (colButtons[key-48].getText()) + ".wav");
                 }
             }
             // If it is the check result key (SPACE)
@@ -1675,7 +1719,7 @@ public class MainWindow extends javax.swing.JFrame {
             public void run() {
 
                 new Login().setVisible(true);
-                
+
                 /*
                 System.out.println("Generating & deleting audio files...");
 
@@ -1684,7 +1728,7 @@ public class MainWindow extends javax.swing.JFrame {
                 audioFileBuilder.deleteOldPhraseAudioFiles();
 
                 System.out.println("Completed audio file generation & deletion!");
-                */
+                 */
             }
         });
     }
