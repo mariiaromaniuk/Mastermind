@@ -7,6 +7,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
 * [**User Manual**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/gui/how-to.pdf)
 
 ## User Interface  
+![](images/mastermind.jpg)  
 ![](images/readme1.jpg)
 ![](images/readme2.jpg)
 ![](images/readme3.jpg)
