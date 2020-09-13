@@ -145,9 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
         JButton closeButton = new JButton("Close");
         JLabel aboutLabel = new JLabel(
                 "<html><b>Developer:</b> Mariia Romaniuk<br />"
-                        + "<b>Project:</b> REACH Coding Challenge<br />"
-                        + "<b>Version:</b> V1 05.18.2020<br />"
-                        + "<b>Review:</b> Caleb Cameron, Joe Kuang");
+                        + "<b>Project:</b> Mastermind Game<br />"
+                        + "<b>Version:</b> V2 08.08.2020<br />");
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
