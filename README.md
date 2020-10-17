@@ -136,6 +136,7 @@ Also known as "generate and test" is a very general problem-solving technique th
  
 ## Technologies Used
 * Java 1.8, HTML
+* SQLite
 * Swing GUI Library: JFC API for Java
 * iMovie, Adobe Creative Cloud
 * IntelliJ IDEA 
