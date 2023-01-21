@@ -5,20 +5,7 @@ Additionally, the player can choose the option to be the Codemaker and watch the
 * [**Demo Video**](https://youtu.be/veBUPgUaIrw)  
 * [**UML Diagram**](https://github.com/mariiaromaniuk/Mastermind/blob/master/uml%20diagram/UML%20Diagram.pdf) 
 * [**User Manual**](https://github.com/mariiaromaniuk/Mastermind/blob/master/src/gui/how-to.pdf)
-
-## User Interface  
-![](images/mastermind-view.jpg)  
-![](images/readme1.jpg)
-![](images/readme2.jpg)
-![](images/readme3.jpg)
-![](images/readme4.jpg)
-![](images/readme5.jpg)
-![](images/readme6.jpg)
-![](images/readme7.jpg)
-![](images/readme8.jpg)
-![](images/readme9.jpg)
-
-  
+ 
 ## Implementation  
 [**MVC Design Pattern**](https://github.com/mariiaromaniuk/Mastermind/blob/master/uml%20diagram/UML%20Diagram.pdf)  
 [**Model**](https://github.com/mariiaromaniuk/Mastermind/tree/master/src/common) - common classes to manage Mastermind game data and interact with the game engine. The central component of the pattern. It is the application's dynamic data structure, independent of the user interface. It directly manages the data, logic and rules of the application.  
@@ -119,6 +106,18 @@ In this equation we sum over the sequences from previous rounds. Number of color
 Also known as "generate and test" is a very general problem-solving technique that consists of systematically enumerating all possible candidates for the solution and checking whether each candidate satisfies the problem's statement. It generates a guess by "incrementing" the previous guess. If no previous guess available generate "lowest" possible guess. Every color is given a value that makes it possible to generate a "lowest" guess and to "increment" a guess.  
 
 **Note:** AI can take up to several minutes, especially if you have set a high width, many colors or when you run the game on a slow computer. This is not a bug, just a side effect of the complex algorithm the AI is using. While the AI is guessing, the GUI is locked. Please stand by until the AI broke the code or the maximum number of tries is reached.  
+
+## User Interface  
+![](images/mastermind-view.jpg)  
+![](images/readme1.jpg)
+![](images/readme2.jpg)
+![](images/readme3.jpg)
+![](images/readme4.jpg)
+![](images/readme5.jpg)
+![](images/readme6.jpg)
+![](images/readme7.jpg)
+![](images/readme8.jpg)
+![](images/readme9.jpg)
 
 ## Further Development     
 * Utilize Google Cloud Text-to-Speech API to explain the current game state to blind players (in progress).  
